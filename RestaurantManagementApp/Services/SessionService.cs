@@ -11,11 +11,8 @@ namespace RestaurantManagementApp.Services
     {
         
         public static Utilizator UtilizatorCurent { get; set; }
-
-        
         public static bool EsteClient => UtilizatorCurent != null && UtilizatorCurent.Rol == "Client";
-
-        
         public static bool EsteAngajat => UtilizatorCurent != null && UtilizatorCurent.Rol == "Angajat";
+        public static Comanda ComandaCurenta { get; set; } = new Comanda();
     }
 }

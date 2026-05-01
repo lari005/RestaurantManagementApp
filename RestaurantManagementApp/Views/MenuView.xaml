@@ -4,6 +4,10 @@
         xmlns:vm="clr-namespace:RestaurantManagementApp.ViewModels"
         Title="Meniul Restaurantului" Height="600" Width="800" WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+
     <Window.DataContext>
         <vm:MenuViewModel />
     </Window.DataContext>
@@ -12,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
@@ -19,7 +24,9 @@
             <TextBox Text="{Binding TextCautare, UpdateSourceTrigger=PropertyChanged}" Width="300" Padding="3"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding PreparateAfisate}" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding PreparateAfisate}" 
+                  SelectedItem="{Binding PreparatSelectat}" 
+                  AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Categorie" Binding="{Binding NumeCategorie}" Width="Auto"/>
                 <DataGridTextColumn Header="Denumire" Binding="{Binding Denumire}" Width="*"/>
@@ -37,5 +44,19 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0"
+                    Visibility="{Binding EsteClientLogat, Converter={StaticResource BoolToVis}}">
+
+            <TextBlock Text="Cantitate:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold"/>
+            <TextBox Text="{Binding CantitateSelectata, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="0,0,20,0" TextAlignment="Center"/>
+
+            <Button Content="Adaugă în Coș" Command="{Binding AdaugaInCosCommand}" 
+                    Background="#FF9800" Foreground="White" FontWeight="Bold" Width="150" Height="35"/>
+
+            <Button Content="Vezi Coșul (Finalizează)" 
+                    Background="#4CAF50" Foreground="White" FontWeight="Bold" Width="180" Height="35" Margin="15,0,0,0"/>
+        </StackPanel>
+
     </Grid>
 </Window>
