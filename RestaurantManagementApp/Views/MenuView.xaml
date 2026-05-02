@@ -8,9 +8,6 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Window.Resources>
 
-    <Window.DataContext>
-        <vm:MenuViewModel />
-    </Window.DataContext>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
