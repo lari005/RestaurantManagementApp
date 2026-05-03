@@ -18,6 +18,10 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
             <TextBlock Text="Căutați în meniu: " VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold"/>
             <TextBox Text="{Binding TextCautare, UpdateSourceTrigger=PropertyChanged}" Width="300" Padding="3"/>
+
+            <Button Content="Deschide Panou Angajat" Command="{Binding DeschidePanouAngajatCommand}" 
+                    Visibility="{Binding EsteAngajatLogat, Converter={StaticResource BoolToVis}}"
+                    Background="#9C27B0" Foreground="White" FontWeight="Bold" Width="180" Margin="30,0,0,0" Cursor="Hand"/>
         </StackPanel>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding PreparateAfisate}" 
@@ -42,17 +46,19 @@
         </DataGrid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0"
-                    Visibility="{Binding EsteClientLogat, Converter={StaticResource BoolToVis}}">
+                 Visibility="{Binding EsteClientLogat, Converter={StaticResource BoolToVis}}">
+
+            <Button Content="Istoric Comenzi" Command="{Binding DeschideIstoricCommand}" 
+                 Background="#2196F3" Foreground="White" FontWeight="Bold" Width="140" Height="35" Margin="0,0,20,0" Cursor="Hand"/>
 
             <TextBlock Text="Cantitate:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold"/>
-            <TextBox Text="{Binding CantitateSelectata, UpdateSourceTrigger=PropertyChanged}" 
-                     Width="50" Margin="0,0,20,0" TextAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox Text="{Binding CantitateSelectata, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="0,0,20,0" TextAlignment="Center" VerticalContentAlignment="Center"/>
 
             <Button Content="Adaugă în Coș" Command="{Binding AdaugaInCosCommand}" 
-                    Background="#FF9800" Foreground="White" FontWeight="Bold" Width="150" Height="35" Cursor="Hand"/>
+                 Background="#FF9800" Foreground="White" FontWeight="Bold" Width="120" Height="35" Cursor="Hand"/>
 
             <Button Content="Vezi Coșul (Finalizează)" Command="{Binding DeschideCosCommand}" 
-                    Background="#4CAF50" Foreground="White" FontWeight="Bold" Width="180" Height="35" Margin="15,0,0,0" Cursor="Hand"/>
+                 Background="#4CAF50" Foreground="White" FontWeight="Bold" Width="170" Height="35" Margin="15,0,0,0" Cursor="Hand"/>
         </StackPanel>
 
     </Grid>

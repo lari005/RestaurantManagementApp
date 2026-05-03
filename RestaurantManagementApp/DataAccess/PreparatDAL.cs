@@ -42,5 +42,29 @@ namespace RestaurantManagementApp.DataAccess
             }
             return lista;
         }
+        public List<Preparat> GetPreparateEpuizare(decimal limita)
+        {
+            List<Preparat> lista = new List<Preparat>();
+            using (SqlConnection conn = DatabaseHelper.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_SelectPreparateEpuizare", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@LimitaCantitate", limita);
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lista.Add(new Preparat
+                        {
+                            Denumire = reader["Denumire"].ToString(),
+                            CantitateTotala = (decimal)reader["CantitateTotala"]
+                        });
+                    }
+                }
+            }
+            return lista;
+        }
     }
 }

@@ -34,15 +34,19 @@ namespace RestaurantManagementApp.ViewModels
 
         
         public bool EsteClientLogat => SessionService.EsteClient;
-
+        public bool EsteAngajatLogat => SessionService.EsteAngajat;
         public ICommand AdaugaInCosCommand { get; }
         public ICommand DeschideCosCommand { get; }
+        public ICommand DeschideIstoricCommand { get; }
+        public ICommand DeschidePanouAngajatCommand { get; }
 
         public MenuViewModel()
         {
             IncarcaDatele();
             AdaugaInCosCommand = new RelayCommand(ExecutaAdaugaInCos);
             DeschideCosCommand = new RelayCommand(ExecutaDeschideCos);
+            DeschideIstoricCommand = new RelayCommand(ExecutaDeschideIstoric);
+            DeschidePanouAngajatCommand = new RelayCommand(ExecutaDeschidePanouAngajat);
         }
 
         public string TextCautare
@@ -113,6 +117,16 @@ namespace RestaurantManagementApp.ViewModels
         {
             var cosView = new RestaurantManagementApp.Views.CosView();
             cosView.ShowDialog(); 
+        }
+        private void ExecutaDeschideIstoric(object obj)
+        {
+            var istoricView = new RestaurantManagementApp.Views.ClientPanelView();
+            istoricView.ShowDialog();
+        }
+        private void ExecutaDeschidePanouAngajat(object obj)
+        {
+            var angajatPanel = new RestaurantManagementApp.Views.AngajatPanelView();
+            angajatPanel.ShowDialog();
         }
     }
 }

@@ -1,0 +1,75 @@
+﻿<Window x:Class="RestaurantManagementApp.Views.AngajatPanelView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Panou de Control - Angajat" Height="650" Width="1100" WindowStartupLocation="CenterScreen" Background="#F8F9FA">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+            <TextBlock Text="Gestionare Comenzi" FontSize="24" FontWeight="Bold" Foreground="#333" VerticalAlignment="Center"/>
+            <CheckBox Content="Afișează DOAR comenzile active" IsChecked="{Binding DoarActive}" 
+                      VerticalAlignment="Center" Margin="30,0,0,0" FontSize="16" FontWeight="SemiBold" Cursor="Hand"/>
+
+            <Button Content="Modifică Categorii/Alergeni" Command="{Binding DeschideCrudCommand}" 
+                    Background="#2196F3" Foreground="White" FontWeight="Bold" Margin="40,0,0,0" Width="200" Cursor="Hand"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Comenzi}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" AlternatingRowBackground="#F0F8FF">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Data" Binding="{Binding DataComanda, StringFormat={}{0:dd/MM HH:mm}}" Width="90"/>
+
+                <DataGridTextColumn Header="Nume Client" Binding="{Binding NumeClient}" Width="120" FontWeight="Bold"/>
+                <DataGridTextColumn Header="Telefon" Binding="{Binding TelefonClient}" Width="100"/>
+                <DataGridTextColumn Header="Adresa Livrare" Binding="{Binding AdresaClient}" Width="150">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Produse" Binding="{Binding ProduseFormatate}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Total" Binding="{Binding CostTotal, StringFormat={}{0:0.00} Lei}" Width="80" FontWeight="Bold"/>
+                <DataGridTextColumn Header="Stare Curentă" Binding="{Binding Stare}" Width="100"/>
+
+                <DataGridTemplateColumn Header="Acțiune Stare" Width="180">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="2">
+                                <ComboBox ItemsSource="{Binding StariDisponibile}" 
+                                          SelectedItem="{Binding StareNoua, UpdateSourceTrigger=PropertyChanged}" 
+                                          Width="105" Height="25"/>
+                                <Button Content="Salvează" 
+                                        Command="{Binding DataContext.SalveazaStareCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                        CommandParameter="{Binding}"
+                                        Background="#4CAF50" Foreground="White" FontWeight="Bold" Margin="5,0,0,0" Padding="5,0" Cursor="Hand"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Grid.Row="2" Text="Alerte Stoc: Produse pe Epuizare" FontSize="18" FontWeight="Bold" Foreground="#D32F2F" Margin="0,15,0,5"/>
+
+        <DataGrid Grid.Row="3" ItemsSource="{Binding PreparateEpuizate}" AutoGenerateColumns="False" IsReadOnly="True" Background="#FFF8F8" BorderBrush="#D32F2F">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Denumire Preparat" Binding="{Binding Denumire}" Width="*" FontWeight="SemiBold"/>
+                <DataGridTextColumn Header="Cantitate Rămasă" Binding="{Binding CantitateTotala}" Width="150" Foreground="#D32F2F" FontWeight="Bold"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>
