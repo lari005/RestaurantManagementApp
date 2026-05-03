@@ -44,5 +44,33 @@ namespace RestaurantManagementApp.DataAccess
             }
             return null; 
         }
+        public bool InregistrareClient(Utilizator utilizator)
+        {
+            using (SqlConnection conn = DatabaseHelper.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_InsertUtilizator", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Nume", utilizator.Nume);
+                cmd.Parameters.AddWithValue("@Prenume", utilizator.Prenume);
+                cmd.Parameters.AddWithValue("@Email", utilizator.Email);
+                cmd.Parameters.AddWithValue("@Telefon", utilizator.Telefon);
+
+                cmd.Parameters.AddWithValue("@AdresaLivrare", string.IsNullOrEmpty(utilizator.AdresaLivrare) ? (object)DBNull.Value : utilizator.AdresaLivrare);
+                cmd.Parameters.AddWithValue("@Parola", utilizator.Parola);
+                cmd.Parameters.AddWithValue("@Rol", "Client"); 
+
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    return true; 
+                }
+                catch
+                {
+                    return false; 
+                }
+            }
+        }
     }
 }

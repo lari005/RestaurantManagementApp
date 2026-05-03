@@ -36,11 +36,13 @@ namespace RestaurantManagementApp.ViewModels
         public bool EsteClientLogat => SessionService.EsteClient;
 
         public ICommand AdaugaInCosCommand { get; }
+        public ICommand DeschideCosCommand { get; }
 
         public MenuViewModel()
         {
             IncarcaDatele();
             AdaugaInCosCommand = new RelayCommand(ExecutaAdaugaInCos);
+            DeschideCosCommand = new RelayCommand(ExecutaDeschideCos);
         }
 
         public string TextCautare
@@ -88,13 +90,13 @@ namespace RestaurantManagementApp.ViewModels
         {
             if (PreparatSelectat == null)
             {
-                MessageBox.Show("Te rugăm să selectezi un preparat din listă!");
+                MessageBox.Show("Te rugam sa selectezi un preparat din lista!");
                 return;
             }
 
             if (CantitateSelectata <= 0 || CantitateSelectata > PreparatSelectat.CantitateTotala)
             {
-                MessageBox.Show("Cantitate invalidă sau stoc insuficient!");
+                MessageBox.Show("Cantitate invalida sau stoc insuficient!");
                 return;
             }
 
@@ -103,9 +105,14 @@ namespace RestaurantManagementApp.ViewModels
                 SessionService.ComandaCurenta.Preparate.Add(PreparatSelectat);
             }
 
-            MessageBox.Show($"Au fost adăugate {CantitateSelectata} porții de {PreparatSelectat.Denumire} în coș!");
+            MessageBox.Show($"Au fost adaugate {CantitateSelectata} portii de {PreparatSelectat.Denumire} in cos!");
 
             CantitateSelectata = 1;
+        }
+        private void ExecutaDeschideCos(object obj)
+        {
+            var cosView = new RestaurantManagementApp.Views.CosView();
+            cosView.ShowDialog(); 
         }
     }
 }

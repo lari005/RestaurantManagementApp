@@ -23,8 +23,8 @@
                          Margin="0,0,0,15" Padding="8" FontSize="14"/>
 
                 <TextBlock Text="Parolă:" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                <TextBox Text="{Binding Parola, UpdateSourceTrigger=PropertyChanged}" 
-                         Margin="0,0,0,20" Padding="8" FontSize="14"/>
+                <PasswordBox x:Name="ParolaBox" PasswordChanged="ParolaBox_PasswordChanged" 
+             Margin="0,0,0,20" Padding="8" FontSize="14"/>
 
                 <Button Content="Autentificare" 
                         Command="{Binding LoginCommand}" 
@@ -40,7 +40,7 @@
 
                 <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0">
                     <Run Text="Nu ai cont? "/>
-                    <Hyperlink Foreground="Blue" FontWeight="Bold">Înregistrează-te acum</Hyperlink>
+                    <Hyperlink Foreground="Blue" FontWeight="Bold" Command="{Binding DeschideInregistrareCommand}">Înregistrează-te acum</Hyperlink>
                 </TextBlock>
             </StackPanel>
         </Grid>

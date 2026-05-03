@@ -1,0 +1,30 @@
+﻿<Window x:Class="RestaurantManagementApp.Views.RegisterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Înregistrare Client Nou" Height="550" Width="400" WindowStartupLocation="CenterScreen" Background="#F0F2F5">
+
+    <Grid Margin="30">
+        <StackPanel>
+            <TextBlock Text="Creare Cont" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20" Foreground="#333"/>
+
+            <TextBlock Text="Nume: *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding Nume, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Padding="8"/>
+
+            <TextBlock Text="Prenume: *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding Prenume, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Padding="8"/>
+
+            <TextBlock Text="Email: *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Padding="8"/>
+
+            <TextBlock Text="Telefon:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding Telefon, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Padding="8"/>
+
+            <TextBlock Text="Parola: *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <PasswordBox x:Name="ParolaBox" PasswordChanged="ParolaBox_PasswordChanged" Margin="0,0,0,20" Padding="8"/>
+
+            <Button Content="Creează Contul" Command="{Binding InregistrareCommand}" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Background="#2196F3" Foreground="White" FontWeight="Bold" Height="40" FontSize="16" Cursor="Hand"/>
+        </StackPanel>
+    </Grid>
+</Window>

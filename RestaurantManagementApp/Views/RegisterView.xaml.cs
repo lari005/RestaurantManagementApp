@@ -16,20 +16,19 @@ using System.Windows.Shapes;
 namespace RestaurantManagementApp.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for RegisterView.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class RegisterView : Window
     {
-        public LoginView()
+        public RegisterView()
         {
             InitializeComponent();
-            this.DataContext = new LoginViewModel();
+            this.DataContext = new RegisterViewModel();
         }
         private void ParolaBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (this.DataContext is LoginViewModel vm)
+            if (this.DataContext is RegisterViewModel vm)
             {
-                
                 vm.Parola = ParolaBox.Password;
             }
         }

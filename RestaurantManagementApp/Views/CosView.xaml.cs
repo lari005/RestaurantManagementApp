@@ -16,22 +16,14 @@ using System.Windows.Shapes;
 namespace RestaurantManagementApp.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for CosView.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class CosView : Window
     {
-        public LoginView()
+        public CosView()
         {
             InitializeComponent();
-            this.DataContext = new LoginViewModel();
-        }
-        private void ParolaBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.DataContext is LoginViewModel vm)
-            {
-                
-                vm.Parola = ParolaBox.Password;
-            }
+            this.DataContext = new CosViewModel();
         }
     }
 }

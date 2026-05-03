@@ -18,6 +18,7 @@ namespace RestaurantManagementApp.ViewModels
             _utilizatorDAL = new UtilizatorDAL();
             LoginCommand = new RelayCommand(ExecutaLogin);
             ContinuaCaOaspeteCommand = new RelayCommand(ExecutaOaspete);
+            DeschideInregistrareCommand = new RelayCommand(ExecutaDeschideInregistrare);
         }
 
         public string Email
@@ -33,6 +34,7 @@ namespace RestaurantManagementApp.ViewModels
         }
 
         public ICommand LoginCommand { get; }
+        public ICommand DeschideInregistrareCommand { get; }
         public ICommand ContinuaCaOaspeteCommand { get; }
 
         private void ExecutaLogin(object obj)
@@ -51,7 +53,7 @@ namespace RestaurantManagementApp.ViewModels
             {
                 
                 SessionService.UtilizatorCurent = utilizator;
-                MessageBox.Show($"Bun venit, {utilizator.Nume}! Te-ai logat ca {utilizator.Rol}.");
+                MessageBox.Show($"Bun venit, {utilizator.Prenume}! Te-ai logat ca {utilizator.Rol}.");
 
                 
                 DeschideMeniuSiInchideLogin(obj);
@@ -82,6 +84,11 @@ namespace RestaurantManagementApp.ViewModels
             {
                 loginWindow.Close();
             }
+        }
+        private void ExecutaDeschideInregistrare(object obj)
+        {
+            var registerView = new RegisterView();
+            registerView.ShowDialog(); 
         }
     }
 }
