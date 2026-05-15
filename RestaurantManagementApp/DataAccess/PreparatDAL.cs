@@ -58,8 +58,12 @@ namespace RestaurantManagementApp.DataAccess
                     {
                         lista.Add(new Preparat
                         {
+                            Id = (int)reader["Id"],
                             Denumire = reader["Denumire"].ToString(),
-                            CantitateTotala = (decimal)reader["CantitateTotala"]
+                            Pret = (decimal)reader["Pret"],
+                            CantitatePortie = (decimal)reader["CantitatePortie"],
+                            CantitateTotala = (decimal)reader["CantitateTotala"],
+                            NumeCategorie = reader["CategorieNume"].ToString()
                         });
                     }
                 }

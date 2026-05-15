@@ -32,5 +32,12 @@ namespace RestaurantManagementApp.Views
                 vm.Parola = ParolaBox.Password;
             }
         }
+        private void CodAngajatBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext is RegisterViewModel vm)
+            {
+                vm.CodAngajat = CodAngajatBox.Password;
+            }
+        }
     }
 }

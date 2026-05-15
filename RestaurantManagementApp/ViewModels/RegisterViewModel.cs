@@ -25,7 +25,20 @@ namespace RestaurantManagementApp.ViewModels
         public string Telefon { get => _telefon; set { _telefon = value; OnPropertyChanged(); } }
         public string AdresaLivrare { get => _adresaLivrare; set { _adresaLivrare = value; OnPropertyChanged(); } }
         public string Parola { get => _parola; set { _parola = value; OnPropertyChanged(); } }
+        public List<string> RoluriDisponibile { get; } = new List<string> { "Client", "Angajat" };
 
+        private string _rolSelectat = "Client"; 
+        public string RolSelectat
+        {
+            get => _rolSelectat;
+            set { _rolSelectat = value; OnPropertyChanged(); }
+        }
+        private string _codAngajat;
+        public string CodAngajat
+        {
+            get => _codAngajat;
+            set { _codAngajat = value; OnPropertyChanged(); }
+        }
         public ICommand InregistrareCommand { get; }
 
         public RegisterViewModel()
@@ -36,20 +49,45 @@ namespace RestaurantManagementApp.ViewModels
         private void ExecutaInregistrare(object obj)
         {
             if (string.IsNullOrWhiteSpace(Nume) || string.IsNullOrWhiteSpace(Prenume) ||
-                string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Parola))
+                string.IsNullOrWhiteSpace(AdresaLivrare) || string.IsNullOrWhiteSpace(Parola))
             {
-                MessageBox.Show("Numele, Prenumele, Email-ul și Parola sunt obligatorii!");
+                MessageBox.Show("Numele, Prenumele, Adresa și Parola sunt obligatorii!");
                 return;
+            }
+
+            string emailFinal = this.Email;
+            
+            if (RolSelectat == "Angajat")
+            {
+                if (CodAngajat != "061005")
+                {
+                    MessageBox.Show("Cod de securitate incorect!");
+                    return;
+                }
+
+               
+                string numeCurat = Nume.Replace(" ", "").ToLower();
+                string prenumeCurat = Prenume.Replace(" ", "").ToLower();
+                emailFinal = $"{numeCurat}.{prenumeCurat}@angajat.ro";
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(emailFinal))
+                {
+                    MessageBox.Show("Te rugăm să introduci o adresă de email personală!");
+                    return;
+                }
             }
 
             var utilizatorNou = new Utilizator
             {
                 Nume = this.Nume,
                 Prenume = this.Prenume,
-                Email = this.Email,
+                Email = emailFinal,
                 Telefon = this.Telefon ?? "",
                 AdresaLivrare = this.AdresaLivrare,
-                Parola = this.Parola
+                Parola = this.Parola,
+                Rol = this.RolSelectat
             };
 
             UtilizatorDAL dal = new UtilizatorDAL();
@@ -57,16 +95,20 @@ namespace RestaurantManagementApp.ViewModels
 
             if (succes)
             {
-                MessageBox.Show("Cont creat cu succes! Acum te poți autentifica.");
-
-                if (obj is Window window)
+                if (RolSelectat == "Angajat")
                 {
-                    window.Close();
+                    MessageBox.Show($"Cont de angajat creat!\nATENȚIE: Te vei autentifica folosind email-ul: {emailFinal}");
                 }
+                else
+                {
+                    MessageBox.Show("Cont de client creat cu succes!");
+                }
+
+                if (obj is Window window) window.Close();
             }
             else
             {
-                MessageBox.Show("Eroare la creare cont. Acest email este deja folosit!");
+                MessageBox.Show("Eroare! Email-ul există deja sau datele sunt invalide.");
             }
         }
     }

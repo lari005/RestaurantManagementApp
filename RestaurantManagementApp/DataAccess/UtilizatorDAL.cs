@@ -58,7 +58,7 @@ namespace RestaurantManagementApp.DataAccess
 
                 cmd.Parameters.AddWithValue("@AdresaLivrare", string.IsNullOrEmpty(utilizator.AdresaLivrare) ? (object)DBNull.Value : utilizator.AdresaLivrare);
                 cmd.Parameters.AddWithValue("@Parola", utilizator.Parola);
-                cmd.Parameters.AddWithValue("@Rol", "Client"); 
+                cmd.Parameters.AddWithValue("@Rol", utilizator.Rol);
 
                 try
                 {
