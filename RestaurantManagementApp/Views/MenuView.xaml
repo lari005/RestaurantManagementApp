@@ -29,6 +29,13 @@
                   AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Categorie" Binding="{Binding NumeCategorie}" Width="Auto"/>
+                <DataGridTemplateColumn Header="Poză" Width="70">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding PrimaImagine}" Width="50" Height="50" Stretch="UniformToFill" Margin="2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Denumire" Binding="{Binding Denumire}" Width="*"/>
                 <DataGridTextColumn Header="Cantitate/Portie" Binding="{Binding CantitatePortie}" Width="Auto"/>
                 <DataGridTextColumn Header="Preț (Lei)" Binding="{Binding Pret}" Width="Auto"/>

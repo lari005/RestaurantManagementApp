@@ -20,7 +20,26 @@ namespace RestaurantManagementApp.Models
         
         public List<string> Alergeni { get; set; } = new List<string>();
         public List<string> Imagini { get; set; } = new List<string>();
+        public string PrimaImagine
+        {
+            get
+            {
+                if (Imagini != null && Imagini.Count > 0)
+                {
+                    string caleRelativa = Imagini[0].TrimStart('/');
 
+                    string caleAbsoluta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, caleRelativa);
+
+                    if (System.IO.File.Exists(caleAbsoluta))
+                    {
+                        return caleAbsoluta;
+                    }
+
+                    return Imagini[0];
+                }
+                return null;
+            }
+        }
         public bool IsDisponibil => CantitateTotala > 0; 
     }
 }
